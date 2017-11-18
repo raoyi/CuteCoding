@@ -1,2 +1,0 @@
-# CuteCoding
-small codings
