@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-print("\n    You can create a file any size.\n")
+print("\n    You can create a file of any size.\n")
 print("    MB as default unit.\n")
 
 raw_num=input("    Enter file size:").upper()
