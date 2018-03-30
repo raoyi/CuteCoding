@@ -1,0 +1,99 @@
+<HTML xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"><head>
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:ContentType msdt:dt="string">Document</mso:ContentType>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+<title></title></head><BODY bgcolor=#ffffff text=#000000>
+<PRE>
+<B><FONT face="Times New Roman, Times, serif" size=3> Test Name: </B>StatiCriteriaINEXSuspend.ps1
+
+<table border=1 bordercolor=green cellspacing=1>
+<tr>
+<th>Test case No</th><td>2177PA</td>
+<th>Script</th><td>StatiCriteriaINEXSuspend.ps1</td>
+</tr>
+<th>Revision No</th><td>2.3</td>
+<th>Priority</th><td>Medium</td>
+</tr>
+<th>Section</th><td>Software Test</td>
+<th>Technical Group</th><td>BIOS</td>
+</tr>
+<th>Category</th><td>BIOS</td>
+<th>Group</th><td>Test coverage</td>
+</tr>
+<th>Form</th><td>Main</td>
+<th>Created By</th><td>Lenovo Team, Cambridge.SG</td>
+</tr>
+<th>Owned By</th><td>Lenovo Team, Cambridge.SG</td>
+<th>Edited By</th><td>Lenovo Team, Cambridge.SG</td>
+</tr>
+<th>Date</th><td>03/26/2012</td>
+<th>Author</th><td>ATS Team</td>
+</tr></table>
+
+<HR SIZE=2 WIDTH="100%" COLOR=black><B>Description:</B> To confirm System Continuous PM-Suspend / Resume for desired number of times with device status detection.
+
+<B>Setup:</B>
+1. Please configure all necessary items before running the test script. 
+2. Please make sure that the power option properties must be enabled for all   BIOS operations.
+   [Example: Suspend/Suspend support should be enabled and should not be password  protected].
+
+<B>Prerequisites:</B>
+
+1. System should have normal windows GINA with Administrator mode without password. 
+2. Finger Print, CSS-GINA should not be enabled. If it is enabled, the user is responsible to swipe the Finger Print / enter Pass Phrase at the time of logon operation after system reboot.
+3. Screen Saver should not be set with prompt for password.
+4. AC should be connected.
+5. Do not disturb the system, when the system is on execution. Also please make Sure no automatic popup windows appear (like anti virus application) except System / ATS generated pop ups.
+6.User pop ups are controlled by the ATS. No user intervention is required unless Requested by the System.
+7. Make sure 'User Account Control Settings' changed as 'Never Notify'.
+8. Make sure all the Power Plan Idle timer settings as Never.
+
+For Windows 8:
+1. Enable 'Sleep' and 'Hibernate' settings in Control panel->Power Options-> System Settings->Shutdown Settings category
+2. Make sure 'Lock' option is disabled in Control panel->Power Options-> System Settings->Shutdown Settings category
+
+<HR SIZE=2 WIDTH="100%" COLOR=black>
+<HTML><text=rgb(255,0,0)>
+<B>Description</B>
+
+StatiCriteriaINEXSuspend.ps1
+
+Supported OS:
+	All OS except Windows 8 (JP)
+
+Total Run Time:
+	45 sec for 1 loop count (approx)
+
+<B>Procedure to run the script:</B>
+
+1. Download the script from server to local system (HDD or pen drive)
+2. A zip file will be downloaded. Extract the zip file.
+3. Run the Set Execution Policy_Unrestricted.bat file present at ATS Sys Files as administrator
+4. Without changing the location of files, Right click the .ps1 file and run as powershell.
+5. The log report will be generated at same path from where the script is run.
+
+
+<B>Scrip Flow:</B>
+1)	Check current power scheme.
+2)	Check if current power scheme is default and prompt user to change power scheme if required.
+3)	Prompt user to configure 
+a.	Selection to run the script either in Silent mode or Interactive mode. Interactive mode means script will popup if a failure occurs. Silent mode will continue till end of script without stopping in between. In both the modes, all the errors occured will be logged in the log file.
+b.	Input loop count i.e. the no. of iteration required to loop the test
+c.	Input elapse time and resume time.
+4)	Generate list of all the devices in Device Manager and their status.
+5)	Perform system Suspend.
+6)	Resume system after the given resume time*.
+7)	Wait for the given elapse time**. 
+8)	Get status of all selected devices and compare with device list generated at step 4. 
+9)	Log the iteration count, PM operation, resume time, Device details if any change detected.
+10)	If user has chosen interactive mode and if any device change detected prompt about device details and ask user to Abort/Continue. Go to step 12 for Abort. Step 11 to continue.
+11)	Repeat Step 5 to 10 for given no. of iterations.
+12)	Generate summarized log results.
+
+
+Note:
+        *Minimum Resume time is 30 sec for Suspend.
+        **Minimum Wait time for all application to initialize properly is 30 sec after Suspend.
+	In case of any issue with the script, please send the "Scriptname_Devlog.htm" as well as "Scriptname_Log.htm" file to ATS team.
